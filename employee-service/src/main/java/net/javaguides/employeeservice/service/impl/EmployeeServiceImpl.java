@@ -8,6 +8,8 @@ import net.javaguides.employeeservice.entity.Employee;
 import net.javaguides.employeeservice.service.EmployeeService;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @AllArgsConstructor
 public class EmployeeServiceImpl implements EmployeeService {
@@ -38,6 +40,21 @@ public class EmployeeServiceImpl implements EmployeeService {
         return savedEmployeeDto;
     }
 
+    @Override
+    public EmployeeDto getEmployeeById(Long employeeId) {
+        Employee employee=  employeeRepository.findById(employeeId).get();
+
+        EmployeeDto employeeDto = new EmployeeDto(
+                employee.getId(),
+                employee.getFirstName(),
+                employee.getLastName(),
+                employee.getEmail(),
+                employee.getDepartmentCode(),
+                employee.getOrganizationCode()
+        );
+
+        return employeeDto;
+    }
 
 
 }
